@@ -59,10 +59,14 @@ func play() {
 	} else {
 		// We can -append to the current list, or replace it
 		append := false
+		now := false
 		// We want to play a selected file
 		if Args[0] == "-append" {
 			Args = Args[1:]
 			append = true
+		} else if Args[0] == "-now" {
+			Args = Args[1:]
+			now = true
 		} else {
 			conn.Clear()
 		}
@@ -82,6 +86,22 @@ func play() {
 		}
 		if !append {
 			conn.Play(0)
+		}
+
+		// If we specified -now then move these new songs to the
+		// front of the queue
+		if now {
+			new_status := get_status()
+			old_len, _ := strconv.Atoi(status["playlistlength"])
+			new_len, _ := strconv.Atoi(new_status["playlistlength"])
+			pos, _ := strconv.Atoi(status["song"])
+			if new_len > old_len {
+				conn.Move(old_len,new_len,pos+1)
+				// Huh, moving a song moves the play position
+				// to 0, so Next() doesn't work.  Play from
+				// this position instead
+				conn.Play(pos+1)
+			}
 		}
 	}
 

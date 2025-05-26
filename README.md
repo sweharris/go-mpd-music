@@ -150,6 +150,39 @@ from the start.
 The optional parameter `-append` will add these songs to the end of the
 queue; `music play -append /mp3/SONGS/ALBUM/Annie_Lennox/Medusa/*`
 
+The optional parameter `-now` will add these songs to the playlist
+after the currently playing song, and then will start playing from the
+new song.  So, for example if the queue was
+
+```
+ -1: Levellers -- Exodus -- TOTP: The Cutting Edge Disc 2
+==== Sting & The Police -- Russians -- The Very Best Of Sting
+  1: Various -- The Empire Strikes Back (from: Star Wars II) -- Space Theme...
+  2: Fat Larry's Band -- Zoom -- Now Yearbook '82 Disc 1
+```
+
+and then we did
+
+```
+% music play -now /mp3/SONGS/SINGLE/Billy_Joel/We_Didnt_Start_The_Fire/*
+```
+
+now the queue would look like
+
+```
+ -2: Levellers -- Exodus -- TOTP: The Cutting Edge Disc 2
+ -1: Sting & The Police -- Russians -- The Very Best Of Sting
+==== Billy Joel -- We Didn't Start The Fire -- We Didn't Start The Fire (CD...
+  1: Billy Joel -- Scenes From An Italian Restaurant -- We Didn't Start The...
+  2: Billy Joel -- Zanzibar -- We Didn't Start The Fire (CD Single)
+  3: Various -- The Empire Strikes Back (from: Star Wars II) -- Space Theme...
+  4: Fat Larry's Band -- Zoom -- Now Yearbook '82 Disc 1
+...
+```
+
+This lets you play a song immediately but then continue with the
+existing playlist afterwards.
+
 ## Pause
 
 The "stop" command really just does a pause.  If you do a "realstop"
