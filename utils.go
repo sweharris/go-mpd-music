@@ -29,6 +29,7 @@ func secs(t_str string) string {
 	return fmt.Sprintf("%d:%02d", m, s)
 }
 
+// Convert on/off/true/false to a boolean
 func truefalse(s string) bool {
 	s = strings.ToLower(s)
 	if s == "true" || s == "on" {
@@ -40,6 +41,7 @@ func truefalse(s string) bool {
 	return false
 }
 
+// Convert a 0/1 to a false/true
 func show_truefalse(s string) string {
 	if s == "0" {
 		return "false"

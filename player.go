@@ -88,7 +88,7 @@ func play() {
 	show_status()
 }
 
-var _ bool = register_fn("play", play, "Play")
+var _ bool = register_fn("play", play, "Play; use `-append` to add to the current queue")
 
 func pause() {
 	connect_to_mpd()
@@ -171,6 +171,8 @@ func goto_time() {
 
 var _ bool = register_fn("goto", goto_time, "Goto mm:ss in current song")
 
+// Take the list of songs in the database, make this the playlist,
+// shuffle it, and play.
 func dj() {
 	connect_to_mpd()
 	conn.Clear()
@@ -184,6 +186,8 @@ func dj() {
 
 var _ bool = register_fn("dj", dj, "Random play of all songs")
 
+// Without a parameter show the current playlist -5/+10 items, otherwise
+// load the named playlist and play it
 func playlist() {
 	connect_to_mpd()
 	if len(Args) == 0 {
