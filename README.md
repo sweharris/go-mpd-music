@@ -144,6 +144,12 @@ Current status: play
 (the `alennox_medusa` is just how I organise my music; it's what shows in
 my music directory).
 
+By default this will replace the existing queue and start playing it
+from the start.
+
+The optional parameter `-append` will add these songs to the end of the
+queue; `music play -append /mp3/SONGS/ALBUM/Annie_Lennox/Medusa/*`
+
 ## Pause
 
 The "stop" command really just does a pause.  If you do a "realstop"
