@@ -30,7 +30,7 @@ var _ bool = register_fn("update", update, "Update index from music directory")
 func dblist() {
 	list := mpd_db_info()
 
-	for _,song := range list {
+	for _, song := range list {
 		fmt.Println(song["file"])
 	}
 }
@@ -40,13 +40,13 @@ var _ bool = register_fn("dblist", dblist, "List all files in MPD database")
 func show_dbinfo() {
 	list := mpd_db_info()
 
-	for _,song := range list {
+	for _, song := range list {
 		t := song["Time"]
 		if t != "" {
-			t=" -- " + secs(t)
+			t = " -- " + secs(t)
 		}
 
-		fmt.Printf("%s -- %s -- %s -- %s%s\n",song["file"],song["Album"],song["Artist"],song["Title"],t)
+		fmt.Printf("%s -- %s -- %s -- %s%s\n", song["file"], song["Album"], song["Artist"], song["Title"], t)
 	}
 }
 

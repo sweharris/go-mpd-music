@@ -50,7 +50,7 @@ func play() {
 	// and start that, otherwise turn off pause
 	if len(Args) == 0 {
 		if status["state"] == "stop" {
-			song:=get_song()
+			song := get_song()
 			p, _ := strconv.Atoi(song["Pos"])
 			conn.Play(p)
 		} else {
@@ -96,11 +96,11 @@ func play() {
 			new_len, _ := strconv.Atoi(new_status["playlistlength"])
 			pos, _ := strconv.Atoi(status["song"])
 			if new_len > old_len {
-				conn.Move(old_len,new_len,pos+1)
+				conn.Move(old_len, new_len, pos+1)
 				// Huh, moving a song moves the play position
 				// to 0, so Next() doesn't work.  Play from
 				// this position instead
-				conn.Play(pos+1)
+				conn.Play(pos + 1)
 			}
 		}
 	}

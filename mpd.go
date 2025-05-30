@@ -11,28 +11,28 @@ var conn *mpd.Client
 
 func get_mpd_addr() (string, string) {
 	// If MPD_HOST isn't defined, use the local socket
-        addr := os.Getenv("MPD_HOST")
-	if addr=="" {
-               	return "unix", "/var/run/mpd/socket"
+	addr := os.Getenv("MPD_HOST")
+	if addr == "" {
+		return "unix", "/var/run/mpd/socket"
 	}
 
 	// If it begines with a / then assume it's a local socket
-       	if addr[0] == '/' {
+	if addr[0] == '/' {
 		return "unix", addr
-       	}
+	}
 
-       	port := os.Getenv("MPD_PORT")
-       	if len(port) == 0 {
-               	port = "6600"
-       	}
-       	return "tcp", addr + ":" + port
+	port := os.Getenv("MPD_PORT")
+	if len(port) == 0 {
+		port = "6600"
+	}
+	return "tcp", addr + ":" + port
 }
 
 // Connect to MPD server
 func connect_to_mpd() {
 	if conn == nil {
 		proto, addr := get_mpd_addr()
-		c, err := mpd.Dial(proto,addr)
+		c, err := mpd.Dial(proto, addr)
 		if err != nil {
 			die(err)
 		}
