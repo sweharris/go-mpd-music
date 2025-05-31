@@ -18,6 +18,7 @@ type fn struct {
 
 // This is where we store all the commands
 var fnmap = map[string]fn{}
+var alternatives = map[string]string{}
 
 // Register a new command
 //
@@ -25,6 +26,11 @@ var fnmap = map[string]fn{}
 //	   var _ bool = register_fn("help", help,"This help message")
 func register_fn(cmd string, f func(), help string) bool {
 	fnmap[cmd] = fn{f: f, help: help}
+	return true
+}
+
+func register_alt(alt, cmd string) bool {
+	alternatives[alt] = cmd
 	return true
 }
 
@@ -42,6 +48,10 @@ func main() {
 		Args = Args[2:]
 	}
 
+	alt, ok := alternatives[cmd]
+	if ok {
+		cmd = alt
+	}
 	val, ok := fnmap[cmd]
 
 	// If this is a defined command, call it
@@ -71,3 +81,20 @@ func help() {
 }
 
 var _ bool = register_fn("help", help, "This help message")
+
+func alts() {
+	fmt.Println("Alternative shorter commands:")
+
+	keys := make([]string, 0, len(fnmap))
+	for k := range alternatives {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		a := alternatives[k]
+		fmt.Printf(" %5s => %s: %s\n", k, a, fnmap[a].help)
+	}
+}
+
+var _ bool = register_fn("alts", alts, "Show alternative options")

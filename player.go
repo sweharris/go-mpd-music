@@ -26,6 +26,7 @@ func show_status() {
 }
 
 var _ bool = register_fn("status", show_status, "Shows status of current song (default action)")
+var _ bool = register_alt("s", "status")
 
 func show_info() {
 	status := get_status()
@@ -136,7 +137,8 @@ func next() {
 }
 
 var _ bool = register_fn("next", next, "Next track")
-var _ bool = register_fn("skip", next, "Next track")
+var _ bool = register_alt("skip", "next")
+var _ bool = register_alt("n", "next")
 
 func previous() {
 	connect_to_mpd()
@@ -145,7 +147,8 @@ func previous() {
 }
 
 var _ bool = register_fn("previous", previous, "Previous track")
-var _ bool = register_fn("prev", previous, "Previous track")
+var _ bool = register_alt("prev", "previous")
+var _ bool = register_alt("p", "previous")
 
 func skip_forward() {
 	connect_to_mpd()
@@ -269,7 +272,7 @@ func playlist() {
 }
 
 var _ bool = register_fn("playlist", playlist, "Load a playlist or show current playlist")
-var _ bool = register_fn("list", playlist, "Load a playlist or show current playlist")
+var _ bool = register_alt("list", "playlist")
 
 func repeat() {
 	if len(Args) == 0 {
