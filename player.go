@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -27,6 +28,39 @@ func show_status() {
 
 var _ bool = register_fn("status", show_status, "Shows status of current song (default action)")
 var _ bool = register_alt("s", "status")
+
+func json_status() {
+	type Status struct {
+		State    string `json:"state"`
+		Album    string `json:"album"`
+		Track    string `json:"track"`
+		Artist   string `json:"artist"`
+		Title    string `json:"title"`
+		Elapsed  string `json:"elapsed"`
+		Duration string `json:"duration"`
+		File     string `json:"file"`
+	}
+
+	status := get_status()
+	song := get_song()
+	s := status["state"]
+
+	j := Status{
+		State:    s,
+		Album:    song["Album"],
+		Track:    song["Track"],
+		Artist:   song["Artist"],
+		Title:    song["Title"],
+		Elapsed:  secs(status["elapsed"]),
+		Duration: secs(status["duration"]),
+		File:     song["file"],
+	}
+
+	str, _ := json.Marshal(j)
+	fmt.Println(string(str))
+}
+
+var _ bool = register_fn("jsonstatus", json_status, "Show status in JSON format")
 
 func show_info() {
 	status := get_status()
