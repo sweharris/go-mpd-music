@@ -28,29 +28,44 @@ This lets me control `mpd` similar to how I controlled iTunes.
 ```
 % music help
 Command options:
+        alts: Show alternative options
       dbinfo: Song details in MPD database
       dblist: List all files in MPD database
           dj: Random play of all songs
         goto: Goto mm:ss in current song
         help: This help message
         info: Shows player info
-        list: Load a playlist or show current playlist
         next: Next track
        pause: Pause
-        play: Play
+        play: Play; use `-append` to add to the current queue
     playlist: Load a playlist or show current playlist
-        prev: Previous track
     previous: Previous track
       random: Random on/off
     realstop: Really stop, not just pause
       repeat: Repeat on/off
       replay: Skip back 5s
       rescan: Full rescan of music directory
+      search: Search for a song
      shuffle: Shuffle current playlist
         skip: Skip forward 5s
       status: Shows status of current song (default action)
         stop: Pause (see realstop)
       update: Update index from music directory
+```
+
+There are also "alternative" comamnds which are essentially just shorter
+options; they're listed seperately to keep the help list short(er).  eg
+`music n` would be the same as `music next`
+
+```
+% music alts
+Alternative shorter commands:
+  list => playlist: Load a playlist or show current playlist
+     n => next: Next track
+     p => previous: Previous track
+  prev => previous: Previous track
+     s => status: Shows status of current song (default action)
+  skip => next: Next track
 ```
 
 Now I may not be using `mpd` "correctly".  In particular with `dj` mode
