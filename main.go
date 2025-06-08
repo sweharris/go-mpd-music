@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 )
 
 // We let the program build a dynamic array of commands.  It becomes
@@ -38,14 +39,19 @@ func register_alt(alt, cmd string) bool {
 var Args []string
 
 func main() {
-	Args = os.Args
+	Args = os.Args[1:]
 
 	// If no paramter is passed, default to "status"
 	// otherwise split command line args
 	var cmd string = "status"
-	if len(Args) > 1 {
-		cmd = Args[1]
-		Args = Args[2:]
+
+	// If the called program ends in "play" then pretend we were
+	// called as "music play ..."
+	if strings.HasSuffix(os.Args[0], "play") {
+		cmd = "play"
+	} else if len(Args) > 0 {
+		cmd = Args[0]
+		Args = Args[1:]
 	}
 
 	alt, ok := alternatives[cmd]
