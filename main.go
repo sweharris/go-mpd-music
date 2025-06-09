@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
-	"strings"
 )
 
 // We let the program build a dynamic array of commands.  It becomes
@@ -45,10 +45,11 @@ func main() {
 	// otherwise split command line args
 	var cmd string = "status"
 
-	// If the called program ends in "play" then pretend we were
-	// called as "music play ..."
-	if strings.HasSuffix(os.Args[0], "play") {
-		cmd = "play"
+	// If the called program matches a command then use that
+	base := filepath.Base(os.Args[0])
+	_, ok := fnmap[base]
+	if ok {
+		cmd = base
 	} else if len(Args) > 0 {
 		cmd = Args[0]
 		Args = Args[1:]
