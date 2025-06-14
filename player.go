@@ -332,6 +332,7 @@ func showlist() {
 }
 
 var _ bool = register_fn("showlist", showlist, "Show available playlists")
+var _ bool = register_alt("showlists", "showlist")
 
 func repeat() {
 	if len(Args) == 0 {
