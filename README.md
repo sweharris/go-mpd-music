@@ -122,6 +122,23 @@ Current status: play
       File: apetshop_smash2/05.Yesterday,_When_I_Was_Mad.mp3
 ```
 
+## list
+
+Note that `music list` can take an optional negative number (eg -2)
+which changes how many entries are displayed.  
+
+```
+% music list -2
+ -2: U2 -- Pride (In The Name Of Love) -- the best Rock Album in the world....
+ -1: Diana Ross And Lionel Richie -- Endless Love -- The Sound Of Magic Dis...
+==== Queen -- Save Me -- The Ultimate Eighties Ballads Songs From The Heart...
+  1: Pet Shop Boys -- Yesterday, When I Was Mad -- Smash The Singles 1993-2...
+  2: Fun Boy Three -- Tunnel Of Love -- Best Sellers Of The 80's
+```
+
+Otherwise if a parameter is passed then it will use that as the `mpd`
+playlist to load.
+
 ## Play
 
 The `play` command can be used to specify a directory/file in the

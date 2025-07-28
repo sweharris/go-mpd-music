@@ -248,14 +248,31 @@ var _ bool = register_fn("dj", dj, "Random play of all songs")
 // load the named playlist and play it
 func playlist() {
 	connect_to_mpd()
+	// If there is an argument and it's a number then use this as
+	// the number of entries +/- to display.
+	before := 5
+	after := 10
+	if len(Args) == 1 && Args[0][:1] == "-" {
+		to_display, e := strconv.Atoi(Args[0])
+		// If the conversion worked correctly...
+		if e == nil {
+			// to_display will be negative (eg -5) so we
+			// make it positive here
+			before = -to_display
+			after = -to_display
+
+			// We've consumed the only entry
+			Args = nil
+		}
+	}
 	if len(Args) == 0 {
 		// Display the current playlist; previous 5 songs and the
 		// next 10.  Highlight the current song
 		song := get_song()
 		p := song["Pos"]
 		pos, _ := strconv.Atoi(p)
-		start := pos - 5 // 5 songs before current position
-		end := pos + 11  // 10 songs after current position
+		start := pos - before  // songs before current position
+		end := pos + after + 1 // songs after current position
 		if start < 0 {
 			start = 0 // We don't have 5 earlier songs!
 		}
