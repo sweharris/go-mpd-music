@@ -17,6 +17,9 @@ type fn struct {
 	help string
 }
 
+// Don't display output?
+var quiet = false
+
 // This is where we store all the commands
 var fnmap = map[string]fn{}
 var alternatives = map[string]string{}
@@ -40,6 +43,12 @@ var Args []string
 
 func main() {
 	Args = os.Args[1:]
+
+	// If we have an arguement and it's -q then treat that as "quiet"
+	if len(Args) > 0 && Args[0] == "-q" {
+		quiet = true
+		Args = Args[1:]
+	}
 
 	// If no paramter is passed, default to "status"
 	// otherwise split command line args
@@ -72,6 +81,8 @@ func main() {
 }
 
 func help() {
+	fmt.Println("Syntax:",os.Args[0],"[-q] command [options]")
+	fmt.Println()
 	fmt.Println("Command options:")
 
 	// Is there an easier way to create a sorted key?

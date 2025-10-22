@@ -25,8 +25,13 @@ around it, but I decided to write a GoLang program instead.
 
 This lets me control `mpd` similar to how I controlled iTunes.
 
+The `-q` option means that commands which would normally show status output
+(including the `status` command!) don't produce that output.
+
 ```
 % music help
+Syntax: music [-q] command [options]
+
 Command options:
         alts: Show alternative options
       dbinfo: Song details in MPD database
@@ -35,6 +40,7 @@ Command options:
         goto: Goto mm:ss in current song
         help: This help message
         info: Shows player info
+  jsonstatus: Show status in JSON format
         next: Next track
        pause: Pause
         play: Play; use `-append` to add to the current queue
@@ -46,6 +52,7 @@ Command options:
       replay: Skip back 5s
       rescan: Full rescan of music directory
       search: Search for a song
+    showlist: Show available playlists
      shuffle: Shuffle current playlist
         skip: Skip forward 5s
       status: Shows status of current song (default action)

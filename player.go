@@ -10,21 +10,23 @@ import (
 )
 
 func show_status() {
-	status := get_status()
-	song := get_song()
+	if !quiet {
+		status := get_status()
+		song := get_song()
 
-	s := status["state"]
+		s := status["state"]
 
-	fmt.Printf("Current status: %s\n", s)
-	fmt.Println()
-	fmt.Printf("     Album: %s\n", song["Album"])
-	fmt.Printf("     Track: %s\n", song["Track"])
-	fmt.Printf("    Artist: %s\n", song["Artist"])
-	fmt.Printf("     Title: %s\n", song["Title"])
-	if s != "stop" {
-		fmt.Printf("  Position: %s of %s\n", secs(status["elapsed"]), secs(status["duration"]))
+		fmt.Printf("Current status: %s\n", s)
+		fmt.Println()
+		fmt.Printf("     Album: %s\n", song["Album"])
+		fmt.Printf("     Track: %s\n", song["Track"])
+		fmt.Printf("    Artist: %s\n", song["Artist"])
+		fmt.Printf("     Title: %s\n", song["Title"])
+		if s != "stop" {
+			fmt.Printf("  Position: %s of %s\n", secs(status["elapsed"]), secs(status["duration"]))
+		}
+		fmt.Printf("      File: %s\n", song["file"])
 	}
-	fmt.Printf("      File: %s\n", song["file"])
 }
 
 var _ bool = register_fn("status", show_status, "Shows status of current song (default action)")
