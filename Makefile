@@ -1,4 +1,4 @@
 SRC := $(wildcard *.go)
 
 music: $(SRC)
-	go build
+	go build -tags netgo
