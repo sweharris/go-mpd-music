@@ -52,7 +52,7 @@ Command options:
       replay: Skip back 5s
       rescan: Full rescan of music directory
       search: Search for a song
-    showlist: Show available playlists
+    showlist: Show available playlists (show contents if named)
      shuffle: Shuffle current playlist
         skip: Skip forward 5s
       status: Shows status of current song (default action)
@@ -230,6 +230,38 @@ beginning of the song.  For this reason I make the "stop" command just do
 a "pause" 'cos that's what I normally really want.
 
 So, yeah, this is really just a command line tool optimised for me!
+
+## Playlists
+
+The "showlist" command will normally list the playlists present.  If
+you also specify the name of the playlist then it will show the contents:
+
+```
+% music showlist
+Available playlists:
+  "Chess"
+  "Christmas"
+  "Decades"
+  "Depeche_Mode"
+  "Equinoxe"
+  "Jean_Michel_Jarre"
+  "Oldfield"
+  "Oxygene"
+  "Planet_Jarre"
+  "Tubular_Bells"
+
+% music showlist Oldfield | head
+aoldfield_amarok/01.Amarok.flac
+aoldfield_elements/01.Tubular_Bells_Opening_Theme.flac
+aoldfield_elements/02.Family_Man.flac
+aoldfield_elements/03.Moonlight_Shadow.flac
+aoldfield_elements/04.Heavens_Open.flac
+aoldfield_elements/05.Five_Miles_Out.flac
+aoldfield_elements/06.To_France.flac
+aoldfield_elements/07.Foreign_Affair.flac
+aoldfield_elements/08.In_Dulci_Jubilo.flac
+aoldfield_elements/09.Shadow_On_The_Wall.flac
+```
 
 ## Connectivity
 

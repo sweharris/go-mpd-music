@@ -328,7 +328,8 @@ func playlist() {
 var _ bool = register_fn("playlist", playlist, "Load a playlist or show current playlist")
 var _ bool = register_alt("list", "playlist")
 
-func showlist() {
+// List all the playlists
+func listlists() {
 	connect_to_mpd()
 	lists, err := conn.ListPlaylists()
 	if err != nil {
@@ -350,7 +351,27 @@ func showlist() {
 	}
 }
 
-var _ bool = register_fn("showlist", showlist, "Show available playlists")
+func show_list_content(listname string) {
+	connect_to_mpd()
+	lists, err := conn.PlaylistContents(listname)
+	if err != nil {
+		die(err)
+	}
+
+	for _, v := range lists {
+		fmt.Println(v["file"])
+	}
+}
+
+func showlist() {
+	if len(Args) != 0 {
+		show_list_content(Args[0])
+	} else {
+		listlists()
+	}
+}
+
+var _ bool = register_fn("showlist", showlist, "Show available playlists (show contents if named)")
 var _ bool = register_alt("showlists", "showlist")
 
 func repeat() {
