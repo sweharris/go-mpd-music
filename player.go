@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -330,19 +329,7 @@ var _ bool = register_alt("list", "playlist")
 
 // List all the playlists
 func listlists() {
-	connect_to_mpd()
-	lists, err := conn.ListPlaylists()
-	if err != nil {
-		die(err)
-	}
-
-	// Build an array of lists so we can sort them
-	l := []string{}
-	for _, v := range lists {
-		l = append(l, v["playlist"])
-	}
-	sort.Strings(l)
-
+	l := getlists()
 	fmt.Println("Available playlists:")
 
 	for _, v := range l {
@@ -352,8 +339,13 @@ func listlists() {
 }
 
 func show_list_content(listname string) {
-	connect_to_mpd()
-	lists, err := conn.PlaylistContents(listname)
+	found := find_playlist(listname)
+	if found == "" {
+		fmt.Printf("List \"" + listname + "\" not found\n")
+		return
+	}
+
+	lists, err := conn.PlaylistContents(found)
 	if err != nil {
 		die(err)
 	}
