@@ -98,10 +98,10 @@ func play() {
 		append := false
 		now := false
 		// We want to play a selected file
-		if Args[0] == "-append" {
+		if Args[0] == "-append" || Args[0] == "--append" {
 			Args = Args[1:]
 			append = true
-		} else if Args[0] == "-now" {
+		} else if Args[0] == "-now" || Args[0] == "--now" {
 			Args = Args[1:]
 			now = true
 		} else {
