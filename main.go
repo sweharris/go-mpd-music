@@ -81,7 +81,7 @@ func main() {
 }
 
 func help() {
-	fmt.Println("Syntax:",os.Args[0],"[-q] command [options]")
+	fmt.Println("Syntax:", os.Args[0], "[-q] command [options]")
 	fmt.Println()
 	fmt.Println("Command options:")
 
